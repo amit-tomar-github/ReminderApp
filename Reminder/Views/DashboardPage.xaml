@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Reminder.Views.DashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Dashboard">
+    
+    <Grid RowDefinitions="Auto,*" Padding="10">
+        <!-- Summary Section -->
+        <Frame
+            Margin="0,10,0,20"
+            Padding="20"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+            CornerRadius="15">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                <Label
+                    Grid.ColumnSpan="2"
+                    Margin="0,0,0,10"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    Text="Current Month Summary"
+                    TextColor="White" />
+                
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                    <Label
+                        FontSize="16"
+                        Text="Pending"
+                        TextColor="White" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="24"
+                        Text="{Binding PendingAmount, StringFormat='₹{0:N0}'}"
+                        TextColor="White" />
+                </VerticalStackLayout>
+                
+                <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="End">
+                    <Label
+                        FontSize="16"
+                        Text="Completed"
+                        TextColor="White" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="24"
+                        Text="{Binding CompletedAmount, StringFormat='₹{0:N0}'}"
+                        TextColor="White" />
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+
+        <!-- Payments List -->
+        <RefreshView
+            x:Name="refreshView"
+            Grid.Row="1"
+            Command="{Binding LoadPaymentsCommand}">
+            <CollectionView
+                x:Name="PaymentsList"
+                ItemsSource="{Binding Payments}"
+                SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image
+                            HeightRequest="100"
+                            Source="payment_empty.png"
+                            WidthRequest="100" />
+                        <Label
+                            Margin="0,20,0,0"
+                            FontSize="18"
+                            Text="No payments for this month"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5">
+                            <Frame
+                                Padding="15"
+                                BorderColor="Transparent"
+                                CornerRadius="10"
+                                HasShadow="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditPaymentCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="5">
+                                    <!-- Status Indicator -->
+                                    <Ellipse
+                                        Grid.RowSpan="3"
+                                        Width="10"
+                                        Height="10"
+                                        Fill="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
+                                    <!-- Payment Details -->
+                                    <Label
+                                        Grid.Column="1"
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding Name}" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        FontSize="14"
+                                        Text="{Binding Description}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        FontSize="14"
+                                        Text="{Binding DueDate, StringFormat='Due: {0:MMM dd}'}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+
+                                    <!-- Amount -->
+                                    <Label
+                                        Grid.RowSpan="3"
+                                        Grid.Column="2"
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding Amount, StringFormat='₹{0:N0}'}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Add Payment Button -->
+        <Button
+            Grid.Row="1"
+            Margin="0,0,20,20"
+            Padding="15"
+            BackgroundColor="{StaticResource Primary}"
+            Command="{Binding AddPaymentCommand}"
+            CornerRadius="30"
+            FontSize="24"
+            HeightRequest="60"
+            HorizontalOptions="End"
+            Text="+"
+            VerticalOptions="End"
+            WidthRequest="60" />
+    </Grid>
+</ContentPage>

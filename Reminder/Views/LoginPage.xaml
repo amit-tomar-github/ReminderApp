@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Reminder.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
+    <Grid 
+        RowDefinitions="2*,3*"
+        Padding="20">
+        <Border
+            Grid.Row="0"
+            Margin="0,50,0,0"
+            StrokeShape="RoundRectangle 40"
+            StrokeThickness="0"
+            HorizontalOptions="Center"
+            HeightRequest="200"
+            WidthRequest="200"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+            Shadow="10">
+            <Image
+                x:Name="LogoImage"
+                Source="dotnet_bot.png"
+                HeightRequest="150"
+                Margin="20"/>
+        </Border>
+
+        <VerticalStackLayout
+            x:Name="LoginControls"
+            Grid.Row="1"
+            Spacing="20"
+            Opacity="0">
+            <Label
+                Text="Payment Reminder"
+                FontSize="32"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+            
+            <Frame
+                Padding="15,0"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                CornerRadius="30"
+                HasShadow="True">
+                <Entry
+                    x:Name="PinEntry"
+                    HorizontalTextAlignment="Center"
+                    IsPassword="True"
+                    Keyboard="Numeric"
+                    MaxLength="4"
+                    Placeholder="Enter PIN"
+                    FontSize="20"
+                    HeightRequest="50" />
+            </Frame>
+
+            <Button
+                x:Name="LoginButton"
+                Text="Login"
+                Clicked="OnLoginClicked"
+                HeightRequest="50"
+                CornerRadius="25"
+                FontAttributes="Bold"
+                FontSize="18"
+                Margin="20,10"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

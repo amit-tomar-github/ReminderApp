@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Reminder.Views.ReminderEditorPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" Padding="20" RowSpacing="20">
+            <!-- Name Entry -->
+            <Frame
+                Grid.Row="0"
+                Padding="15,5"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                CornerRadius="10"
+                HasShadow="True">
+                <Entry
+                    x:Name="NameEntry"
+                    Placeholder="Reminder Name"
+                    Text="{Binding Name}"
+                    FontSize="16" />
+            </Frame>
+
+            <!-- Description Entry -->
+            <Frame
+                Grid.Row="1"
+                Padding="15,5"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                CornerRadius="10"
+                HasShadow="True">
+                <Entry
+                    x:Name="DescEntry"
+                    Placeholder="Description"
+                    Text="{Binding Description}"
+                    FontSize="16" />
+            </Frame>
+
+            <!-- Due Date Picker -->
+            <Frame
+                Grid.Row="2"
+                Padding="15,5"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                CornerRadius="10"
+                HasShadow="True">
+                <DatePicker
+                    x:Name="DueDatePicker"
+                    Date="{Binding DueDate}"
+                    Format="dd-MM-yyyy"
+                    FontSize="16" />
+            </Frame>
+
+            <!-- Amount Entry -->
+            <Frame
+                Grid.Row="3"
+                Padding="15,5"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                CornerRadius="10"
+                HasShadow="True">
+                <Entry
+                    x:Name="AmountEntry"
+                    Keyboard="Numeric"
+                    Placeholder="Amount"
+                    Text="{Binding Amount}"
+                    FontSize="16" />
+            </Frame>
+
+            <!-- Status Switch -->
+            <Frame
+                Grid.Row="4"
+                Padding="15,5"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                CornerRadius="10"
+                HasShadow="True">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label
+                        Text="Reminder Completed"
+                        VerticalOptions="Center"
+                        FontSize="16" />
+                    <Switch
+                        x:Name="StatusSwitch"
+                        Grid.Column="1"
+                        IsToggled="{Binding IsCompleted}"
+                        OnColor="{StaticResource Primary}" />
+                </Grid>
+            </Frame>
+
+            <!-- Save Button -->
+            <Grid Grid.Row="5" RowDefinitions="Auto">
+                <Button
+                    x:Name="SaveButton"
+                    Clicked="OnSaveClicked"
+                    Text="Save Reminder"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HeightRequest="50"
+                    CornerRadius="25" />
+                <ActivityIndicator
+                    x:Name="ActivityIndicator"
+                    IsVisible="False"
+                    IsRunning="True"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,15 +1,17 @@
-﻿namespace Reminder
+﻿using Reminder.Services;
+using Reminder.Views;
+
+namespace Reminder
 {
     public partial class App : Application
     {
+        public static DatabaseService Database { get; private set; }
+
         public App()
         {
             InitializeComponent();
-        }
-
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
+            Database = new DatabaseService();
+            MainPage = new LoginPage();
         }
     }
 }
