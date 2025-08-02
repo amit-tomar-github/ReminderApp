@@ -5,76 +5,84 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ScrollView>
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" Padding="20" RowSpacing="20">
-            <!-- Name Entry -->
+        <Grid
+            Padding="20"
+            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+            RowSpacing="20">
+            <!--  Name Entry  -->
             <Frame
                 Grid.Row="0"
                 Padding="15,5"
-                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary},
+                                              Dark={StaticResource PrimaryDark}}"
                 CornerRadius="10"
                 HasShadow="True">
                 <Entry
                     x:Name="NameEntry"
+                    FontSize="16"
                     Placeholder="Reminder Name"
-                    Text="{Binding Name}"
-                    FontSize="16" />
+                    Text="{Binding Name}" />
             </Frame>
 
-            <!-- Description Entry -->
+            <!--  Description Entry  -->
             <Frame
                 Grid.Row="1"
                 Padding="15,5"
-                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary},
+                                              Dark={StaticResource PrimaryDark}}"
                 CornerRadius="10"
                 HasShadow="True">
                 <Entry
                     x:Name="DescEntry"
+                    FontSize="16"
                     Placeholder="Description"
-                    Text="{Binding Description}"
-                    FontSize="16" />
+                    Text="{Binding Description}" />
             </Frame>
 
-            <!-- Due Date Picker -->
+            <!--  Due Date Picker  -->
             <Frame
                 Grid.Row="2"
                 Padding="15,5"
-                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary},
+                                              Dark={StaticResource PrimaryDark}}"
                 CornerRadius="10"
                 HasShadow="True">
                 <DatePicker
                     x:Name="DueDatePicker"
                     Date="{Binding DueDate}"
-                    Format="dd-MM-yyyy"
-                    FontSize="16" />
+                    FontSize="16"
+                    Format="dd-MM-yyyy" />
             </Frame>
 
-            <!-- Amount Entry -->
+            <!--  Amount Entry  -->
             <Frame
                 Grid.Row="3"
                 Padding="15,5"
-                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary},
+                                              Dark={StaticResource PrimaryDark}}"
                 CornerRadius="10"
                 HasShadow="True">
                 <Entry
                     x:Name="AmountEntry"
+                    FontSize="16"
                     Keyboard="Numeric"
                     Placeholder="Amount"
-                    Text="{Binding Amount}"
-                    FontSize="16" />
+                    Text="{Binding Amount}" />
             </Frame>
 
-            <!-- Status Switch -->
+            <!--  Status Switch  -->
             <Frame
                 Grid.Row="4"
                 Padding="15,5"
-                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary},
+                                              Dark={StaticResource PrimaryDark}}"
                 CornerRadius="10"
                 HasShadow="True">
                 <Grid ColumnDefinitions="*,Auto">
                     <Label
+                        FontSize="16"
                         Text="Reminder Completed"
-                        VerticalOptions="Center"
-                        FontSize="16" />
+                        VerticalOptions="Center" />
                     <Switch
                         x:Name="StatusSwitch"
                         Grid.Column="1"
@@ -83,16 +91,16 @@
                 </Grid>
             </Frame>
 
-            <!-- Save Button -->
+            <!--  Save Button  -->
             <Grid Grid.Row="5" RowDefinitions="Auto">
                 <Button
                     x:Name="SaveButton"
                     Clicked="OnSaveClicked"
-                    Text="Save Reminder"
+                    CornerRadius="25"
                     FontAttributes="Bold"
                     FontSize="16"
                     HeightRequest="50"
-                    CornerRadius="25">
+                    Text="Save Reminder">
                     <Button.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                             <GradientStop Offset="0.0" Color="{StaticResource Primary}" />
@@ -102,9 +110,9 @@
                 </Button>
                 <ActivityIndicator
                     x:Name="ActivityIndicator"
-                    IsVisible="False"
-                    IsRunning="True"
                     HorizontalOptions="Center"
+                    IsRunning="True"
+                    IsVisible="False"
                     VerticalOptions="Center" />
             </Grid>
         </Grid>
