@@ -43,12 +43,12 @@ Each saved reminder is automatically included in your dashboard.
 
 🔁 Roll over reminders for the next month upon completion
 
-📱 Android support via .NET 8 MAUI
+📱 Android support via .NET 9 MAUI
 
 🌈 Clean and intuitive UI
 
 🛠 Tech Stack
-.NET 8
+.NET 9
 
 MAUI (Multi-platform App UI)
 
@@ -64,3 +64,22 @@ git clone https://github.com/your-username/reminder-app.git
 Open the project in Visual Studio 2022 with MAUI workload
 
 Build and deploy the app to an Android device or emulator
+
+📲 Installing on Android Device
+To install and test the app on your Android device:
+
+In Visual Studio, select Release mode.
+
+Build the project and run it on an emulator or connected device.
+
+After successful build, navigate to the bin\Release\net8.0-android\... folder.
+
+Find the signed APK generated and copy it to your Android device.
+
+Open the file on your Android device and install it.
+
+Important:
+
+If the install fails the first time, try again.
+
+Make sure to enable “Install from unknown sources” in your device settings.
