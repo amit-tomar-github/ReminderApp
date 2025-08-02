@@ -23,8 +23,6 @@ namespace Reminder.ViewModels
             EditPaymentCommand = new Command<Payment>(async (payment) => await EditPaymentAsync(payment));
             AddPaymentCommand = new Command(async () => await AddPaymentAsync());
             DeletePaymentCommand = new Command<Payment>(async (payment) => await DeletePaymentAsync(payment));
-            
-            LoadPaymentsCommand.Execute(null);
         }
 
         private async Task LoadPaymentsAsync()

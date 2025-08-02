@@ -40,8 +40,7 @@ namespace Reminder.Views
             AddAnimation(DescEntry, 1);
             AddAnimation(DueDatePicker, 2);
             AddAnimation(AmountEntry, 3);
-            AddAnimation(StatusSwitch, 4);
-            AddAnimation(SaveButton, 5);
+            AddAnimation(SaveButton, 4);
 
             entryAnimation.Commit(this, "EntryAnimation", 16, 400, Easing.CubicOut);
         }

@@ -47,8 +47,7 @@ namespace Reminder.Services
             {
                 return await _database.Table<Payment>()
                     .Where(p => p.DueDate >= startOfMonth &&
-                                p.DueDate < startOfNextMonth &&
-                                !p.IsCompleted)
+                                p.DueDate < startOfNextMonth)
                     .ToListAsync();
             }
             catch (Exception ex)

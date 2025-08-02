@@ -70,26 +70,6 @@
                     Text="{Binding Amount}" />
             </Frame>
 
-            <!--  Status Switch  -->
-            <Frame
-                Grid.Row="4"
-                Padding="15,5"
-                BorderColor="{AppThemeBinding Light={StaticResource Primary},
-                                              Dark={StaticResource PrimaryDark}}"
-                CornerRadius="10"
-                HasShadow="True">
-                <Grid ColumnDefinitions="*,Auto">
-                    <Label
-                        FontSize="16"
-                        Text="Reminder Completed"
-                        VerticalOptions="Center" />
-                    <Switch
-                        x:Name="StatusSwitch"
-                        Grid.Column="1"
-                        IsToggled="{Binding IsCompleted}"
-                        OnColor="{StaticResource Primary}" />
-                </Grid>
-            </Frame>
 
             <!--  Save Button  -->
             <Grid Grid.Row="5" RowDefinitions="Auto">

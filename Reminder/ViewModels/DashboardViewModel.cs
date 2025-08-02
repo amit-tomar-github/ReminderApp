@@ -48,7 +48,6 @@ namespace Reminder.ViewModels
             _dbService = App.Database;
             LoadPaymentsCommand = new Command(async () => await LoadPaymentsAsync());
             CompletePaymentCommand = new Command<Payment>(async (payment) => await CompletePaymentAsync(payment));
-            // Removed initial data load to avoid double records
         }
 
         private async Task LoadPaymentsAsync()
@@ -57,7 +56,7 @@ namespace Reminder.ViewModels
             {
                 PendingPayments.Clear();
                 var items = await _dbService.GetCurrentMonthPaymentsAsync();
-                var pendingItems = items.Where(p => !p.IsCompleted).ToList();
+                var pendingItems = items;
                 
                 foreach (var item in pendingItems)
                 {
@@ -81,21 +80,11 @@ namespace Reminder.ViewModels
 
             try
             {
-                // Create next month's payment
-                var nextPayment = new Payment
-                {
-                    Name = payment.Name,
-                    Description = payment.Description,
-                    Amount = payment.Amount,
-                    DueDate = payment.DueDate.AddMonths(1),
-                    IsCompleted = false
-                };
+                // update as next month's payment
+                payment.DueDate = payment.DueDate.AddMonths(1);
 
-                // Mark current payment as completed
-                payment.IsCompleted = true;
                 await _dbService.SavePaymentAsync(payment);
-                await _dbService.SavePaymentAsync(nextPayment);
-
+          
                 // Refresh the list and summary
                 await LoadPaymentsAsync();
 
