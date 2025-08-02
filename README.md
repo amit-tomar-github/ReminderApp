@@ -54,19 +54,6 @@ MAUI (Multi-platform App UI)
 
 Android platform
 
-📂 Folder Structure
-Copy
-Edit
-/ReminderApp
-│
-├── Platforms/
-├── Views/
-│ ├── LoginPage.xaml
-│ ├── DashboardPage.xaml
-│ └── AddReminderPage.xaml
-├── Models/
-├── Services/
-└── README.md
 📦 Installation
 Clone the repository
 
