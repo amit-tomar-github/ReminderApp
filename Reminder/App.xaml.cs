@@ -1,4 +1,5 @@
-﻿using Reminder.Services;
+﻿using Microsoft.Maui.Controls.Platform;
+using Reminder.Services;
 using Reminder.Views;
 
 namespace Reminder
@@ -11,7 +12,22 @@ namespace Reminder
         {
             InitializeComponent();
             Database = new DatabaseService();
-            MainPage = new LoginPage();
+        }
+
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            var window = new Window(new LoginPage())
+            {
+                Title = "Reminder App"
+            };
+
+            // Handle when the window is created
+            window.Created += (s, e) =>
+            {
+                // Any additional window initialization can go here
+            };
+
+            return window;
         }
     }
 }

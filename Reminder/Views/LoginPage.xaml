@@ -61,7 +61,14 @@
                 CornerRadius="25"
                 FontAttributes="Bold"
                 FontSize="18"
-                Margin="20,10"/>
+                Margin="20,10">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0.0" Color="{StaticResource Primary}" />
+                        <GradientStop Offset="1.0" Color="{StaticResource PrimaryGradientEnd}" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

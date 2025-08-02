@@ -58,6 +58,20 @@ namespace Reminder.Services
             }
         }
 
+        public async Task<List<Payment>> GetAllPaymentsAsync()
+        {
+            await InitAsync();
+            try
+            {
+                return await _database.Table<Payment>().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log or handle query error
+                throw new Exception($"Failed to fetch all payments: {ex.Message}", ex);
+            }
+        }
+
         public async Task<int> SavePaymentAsync(Payment payment)
         {
             await InitAsync();
@@ -71,6 +85,20 @@ namespace Reminder.Services
             {
                 // Log or handle save error
                 throw new Exception($"Failed to save payment: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<int> DeletePaymentAsync(Payment payment)
+        {
+            await InitAsync();
+            try
+            {
+                return await _database.DeleteAsync(payment);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle delete error
+                throw new Exception($"Failed to delete payment: {ex.Message}", ex);
             }
         }
     }

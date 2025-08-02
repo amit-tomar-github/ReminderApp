@@ -10,8 +10,14 @@
         <Frame
             Margin="0,10,0,20"
             Padding="20"
-            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-            CornerRadius="15">
+            CornerRadius="15"
+            HasShadow="True">
+            <Frame.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Offset="0.0" Color="{StaticResource Primary}" />
+                    <GradientStop Offset="1.0" Color="{StaticResource PrimaryGradientEnd}" />
+                </LinearGradientBrush>
+            </Frame.Background>
             <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
                 <Label
                     Grid.ColumnSpan="2"
@@ -19,13 +25,13 @@
                     FontAttributes="Bold"
                     FontSize="20"
                     HorizontalOptions="Center"
-                    Text="Current Month Summary"
+                    Text="Pending Reminders"
                     TextColor="White" />
                 
                 <VerticalStackLayout Grid.Row="1" Grid.Column="0">
                     <Label
                         FontSize="16"
-                        Text="Pending"
+                        Text="Total Amount"
                         TextColor="White" />
                     <Label
                         FontAttributes="Bold"
@@ -37,25 +43,25 @@
                 <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="End">
                     <Label
                         FontSize="16"
-                        Text="Completed"
+                        Text="Count"
                         TextColor="White" />
                     <Label
                         FontAttributes="Bold"
                         FontSize="24"
-                        Text="{Binding CompletedAmount, StringFormat='₹{0:N0}'}"
+                        Text="{Binding PendingCount}"
                         TextColor="White" />
                 </VerticalStackLayout>
             </Grid>
         </Frame>
 
-        <!-- Payments List -->
+        <!-- Pending Payments List -->
         <RefreshView
             x:Name="refreshView"
             Grid.Row="1"
             Command="{Binding LoadPaymentsCommand}">
             <CollectionView
                 x:Name="PaymentsList"
-                ItemsSource="{Binding Payments}"
+                ItemsSource="{Binding PendingPayments}"
                 SelectionMode="None">
                 <CollectionView.EmptyView>
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
@@ -66,58 +72,61 @@
                         <Label
                             Margin="0,20,0,0"
                             FontSize="18"
-                            Text="No payments for this month"
+                            Text="No pending reminders"
                             TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="5">
-                            <Frame
-                                Padding="15"
-                                BorderColor="Transparent"
-                                CornerRadius="10"
-                                HasShadow="True">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditPaymentCommand}" CommandParameter="{Binding .}" />
-                                </Frame.GestureRecognizers>
-                                <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="5">
-                                    <!-- Status Indicator -->
-                                    <Ellipse
-                                        Grid.RowSpan="3"
-                                        Width="10"
-                                        Height="10"
-                                        Fill="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}}"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center" />
-
+                            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                                <Frame.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Offset="0.0" Color="{StaticResource Secondary}" />
+                                        <GradientStop Offset="1.0" Color="White" />
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="5">
                                     <!-- Payment Details -->
                                     <Label
-                                        Grid.Column="1"
+                                        Grid.Column="0"
                                         FontAttributes="Bold"
                                         FontSize="18"
                                         Text="{Binding Name}" />
                                     <Label
                                         Grid.Row="1"
-                                        Grid.Column="1"
+                                        Grid.Column="0"
                                         FontSize="14"
                                         Text="{Binding Description}"
                                         TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
                                     <Label
                                         Grid.Row="2"
-                                        Grid.Column="1"
+                                        Grid.Column="0"
                                         FontSize="14"
-                                        Text="{Binding DueDate, StringFormat='Due: {0:MMM dd}'}"
+                                        Text="{Binding DueDate, StringFormat='Due: {0:dd-MM-yyyy}'}"
                                         TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
 
-                                    <!-- Amount -->
-                                    <Label
-                                        Grid.RowSpan="3"
-                                        Grid.Column="2"
-                                        FontAttributes="Bold"
-                                        FontSize="18"
-                                        Text="{Binding Amount, StringFormat='₹{0:N0}'}"
-                                        VerticalOptions="Center" />
+                                    <!-- Amount and Complete Button -->
+                                    <StackLayout Grid.RowSpan="3" Grid.Column="1" Spacing="10">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            HorizontalOptions="End"
+                                            Text="{Binding Amount, StringFormat='₹{0:N0}'}" />
+                                        <Button
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CompletePaymentCommand}"
+                                            CommandParameter="{Binding .}"
+                                            HeightRequest="35"
+                                            Text="Complete"
+                                            WidthRequest="100">
+                                            <Button.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                    <GradientStop Offset="0.0" Color="{StaticResource Primary}" />
+                                                    <GradientStop Offset="1.0" Color="{StaticResource PrimaryGradientEnd}" />
+                                                </LinearGradientBrush>
+                                            </Button.Background>
+                                        </Button>
+                                    </StackLayout>
                                 </Grid>
                             </Frame>
                         </Grid>
@@ -125,20 +134,5 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-
-        <!-- Add Payment Button -->
-        <Button
-            Grid.Row="1"
-            Margin="0,0,20,20"
-            Padding="15"
-            BackgroundColor="{StaticResource Primary}"
-            Command="{Binding AddPaymentCommand}"
-            CornerRadius="30"
-            FontSize="24"
-            HeightRequest="60"
-            HorizontalOptions="End"
-            Text="+"
-            VerticalOptions="End"
-            WidthRequest="60" />
     </Grid>
 </ContentPage>

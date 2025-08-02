@@ -3,8 +3,8 @@
     x:Class="Reminder.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Reminder"
-    xmlns:converters="clr-namespace:Reminder.Converters">
+    xmlns:converters="clr-namespace:Reminder.Converters"
+    xmlns:local="clr-namespace:Reminder">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,19 +12,8 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Colors -->
-            <Color x:Key="PrimaryDark">#2B0B98</Color>
-            <Color x:Key="SecondaryDark">#201F1F</Color>
-            <Color x:Key="Gray950">#1C1C1E</Color>
-            <Color x:Key="Gray900">#212121</Color>
-            <Color x:Key="Gray600">#757575</Color>
-            <Color x:Key="Gray500">#9E9E9E</Color>
-            <Color x:Key="Gray400">#BDBDBD</Color>
-            <Color x:Key="Gray100">#F5F5F5</Color>
-
-            <!-- Converters -->
+            <!--  Converters  -->
             <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

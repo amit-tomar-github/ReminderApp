@@ -8,14 +8,10 @@
 
     <TabBar>
         <Tab Title="Dashboard" Icon="home">
-            <ShellContent
-                Title="Dashboard"
-                ContentTemplate="{DataTemplate views:DashboardPage}" />
+            <ShellContent Title="Dashboard" ContentTemplate="{DataTemplate views:DashboardPage}" />
         </Tab>
         <Tab Title="Reminders" Icon="reminder">
-            <ShellContent
-                Title="Reminders"
-                ContentTemplate="{DataTemplate views:RemindersPage}" />
+            <ShellContent Title="Reminders" ContentTemplate="{DataTemplate views:PaymentsListPage}" />
         </Tab>
     </TabBar>
 

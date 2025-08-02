@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Reminder.Views.PaymentsListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Reminders">
+
+    <Grid Padding="10" RowDefinitions="*,Auto">
+        <RefreshView
+            x:Name="refreshView"
+            Grid.Row="0"
+            Command="{Binding LoadPaymentsCommand}">
+            <CollectionView
+                x:Name="PaymentsList"
+                ItemsSource="{Binding Payments}"
+                SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image
+                            HeightRequest="100"
+                            Source="payment_empty.png"
+                            WidthRequest="100" />
+                        <Label
+                            Margin="0,20,0,0"
+                            FontSize="18"
+                            Text="No reminders yet"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray500},
+                                                        Dark={StaticResource Gray400}}" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5">
+                            <Frame
+                                Padding="15"
+                                CornerRadius="10"
+                                HasShadow="True">
+                                <Grid
+                                    ColumnDefinitions="*,Auto,Auto"
+                                    RowDefinitions="Auto,Auto,Auto"
+                                    RowSpacing="5">
+                                    <!--  Payment Details  -->
+                                    <Label
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding Name}" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        FontSize="14"
+                                        Text="{Binding Description}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray600},
+                                                                    Dark={StaticResource Gray400}}" />
+                                    <StackLayout
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Orientation="Horizontal">
+                                        <Label
+                                            FontSize="14"
+                                            Text="{Binding DueDate, StringFormat='{0:dd-MM-yyyy}'}"
+                                            TextColor="{AppThemeBinding Light={StaticResource Gray600},
+                                                                        Dark={StaticResource Gray400}}" />
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            FontAttributes="Bold"
+                                            FontSize="14"
+                                            Text="{Binding Amount, StringFormat='?{0:N0}'}"
+                                            TextColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                        Dark={StaticResource PrimaryDark}}" />
+                                    </StackLayout>
+
+                                    <!--  Edit Button  -->
+                                    <ImageButton
+                                        Grid.RowSpan="3"
+                                        Grid.Column="1"
+                                        Margin="10,0"
+                                        Aspect="AspectFit"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditPaymentCommand}"
+                                        CommandParameter="{Binding .}"
+                                        HeightRequest="24"
+                                        Source="edit.png"
+                                        WidthRequest="24" />
+
+                                    <!--  Delete Button  -->
+                                    <ImageButton
+                                        Grid.RowSpan="3"
+                                        Grid.Column="2"
+                                        Aspect="AspectFit"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeletePaymentCommand}"
+                                        CommandParameter="{Binding .}"
+                                        HeightRequest="20"
+                                        Source="delete.png"
+                                        WidthRequest="20" />
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!--  Add Payment Button  -->
+        <Button
+            Grid.Row="1"
+            Margin="20"
+            Command="{Binding AddPaymentCommand}"
+            Text="Add New Reminder">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Offset="0.0" Color="{StaticResource Primary}" />
+                    <GradientStop Offset="1.0" Color="{StaticResource PrimaryGradientEnd}" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+    </Grid>
+</ContentPage>

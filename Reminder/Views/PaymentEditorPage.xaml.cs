@@ -3,13 +3,13 @@ using Reminder.Services;
 
 namespace Reminder.Views
 {
-    public partial class ReminderEditorPage : ContentPage
+    public partial class PaymentEditorPage : ContentPage
     {
         private Payment _payment;
         private readonly DatabaseService _dbService;
-        public event EventHandler ReminderSaved;
+        public event EventHandler PaymentSaved;
 
-        public ReminderEditorPage(Payment payment = null)
+        public PaymentEditorPage(Payment payment = null)
         {
             InitializeComponent();
             _dbService = App.Database;
@@ -66,7 +66,7 @@ namespace Reminder.Views
             try
             {
                 await _dbService.SavePaymentAsync(_payment);
-                ReminderSaved?.Invoke(this, EventArgs.Empty);
+                PaymentSaved?.Invoke(this, EventArgs.Empty);
                 await Navigation.PopAsync();
             }
             catch (Exception ex)

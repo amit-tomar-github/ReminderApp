@@ -10,9 +10,9 @@ namespace Reminder.ViewModels
     {
         private readonly DatabaseService _dbService;
         private decimal _pendingAmount;
-        private decimal _completedAmount;
+        private int _pendingCount;
 
-        public ObservableCollection<Payment> Payments { get; } = new();
+        public ObservableCollection<Payment> PendingPayments { get; } = new();
         
         public decimal PendingAmount
         {
@@ -27,29 +27,27 @@ namespace Reminder.ViewModels
             }
         }
 
-        public decimal CompletedAmount
+        public int PendingCount
         {
-            get => _completedAmount;
+            get => _pendingCount;
             private set
             {
-                if (_completedAmount != value)
+                if (_pendingCount != value)
                 {
-                    _completedAmount = value;
+                    _pendingCount = value;
                     OnPropertyChanged();
                 }
             }
         }
 
         public ICommand LoadPaymentsCommand { get; }
-        public ICommand EditPaymentCommand { get; }
-        public ICommand AddPaymentCommand { get; }
+        public ICommand CompletePaymentCommand { get; }
 
         public DashboardViewModel()
         {
             _dbService = App.Database;
             LoadPaymentsCommand = new Command(async () => await LoadPaymentsAsync());
-            EditPaymentCommand = new Command<Payment>(async (payment) => await EditPaymentAsync(payment));
-            AddPaymentCommand = new Command(async () => await AddPaymentAsync());
+            CompletePaymentCommand = new Command<Payment>(async (payment) => await CompletePaymentAsync(payment));
             
             LoadPaymentsCommand.Execute(null);
         }
@@ -58,17 +56,18 @@ namespace Reminder.ViewModels
         {
             try
             {
-                Payments.Clear();
+                PendingPayments.Clear();
                 var items = await _dbService.GetCurrentMonthPaymentsAsync();
+                var pendingItems = items.Where(p => !p.IsCompleted).ToList();
                 
-                foreach (var item in items)
+                foreach (var item in pendingItems)
                 {
-                    Payments.Add(item);
+                    PendingPayments.Add(item);
                 }
 
-                // Update summary amounts
-                PendingAmount = Payments.Where(p => !p.IsCompleted).Sum(p => p.Amount);
-                CompletedAmount = Payments.Where(p => p.IsCompleted).Sum(p => p.Amount);
+                // Update summary
+                PendingAmount = pendingItems.Sum(p => p.Amount);
+                PendingCount = pendingItems.Count;
             }
             catch (Exception ex)
             {
@@ -77,22 +76,38 @@ namespace Reminder.ViewModels
             }
         }
 
-        private async Task EditPaymentAsync(Payment payment)
+        private async Task CompletePaymentAsync(Payment payment)
         {
             if (payment == null) return;
 
-            var page = new PaymentEditorPage(payment);
-            page.PaymentSaved += async (s, e) => await LoadPaymentsAsync();
-            
-            await Shell.Current.Navigation.PushAsync(page);
-        }
+            try
+            {
+                // Create next month's payment
+                var nextPayment = new Payment
+                {
+                    Name = payment.Name,
+                    Description = payment.Description,
+                    Amount = payment.Amount,
+                    DueDate = payment.DueDate.AddMonths(1),
+                    IsCompleted = false
+                };
 
-        private async Task AddPaymentAsync()
-        {
-            var page = new PaymentEditorPage();
-            page.PaymentSaved += async (s, e) => await LoadPaymentsAsync();
-            
-            await Shell.Current.Navigation.PushAsync(page);
+                // Mark current payment as completed
+                payment.IsCompleted = true;
+                await _dbService.SavePaymentAsync(payment);
+                await _dbService.SavePaymentAsync(nextPayment);
+
+                // Refresh the list and summary
+                await LoadPaymentsAsync();
+
+                await Application.Current.MainPage.DisplayAlert("Success", 
+                    "Payment completed and scheduled for next month", "OK");
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error",
+                    "Failed to complete payment: " + ex.Message, "OK");
+            }
         }
     }
 }
