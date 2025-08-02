@@ -2,18 +2,32 @@ namespace Reminder.Views
 {
     public partial class LoginPage : ContentPage
     {
-        private const string PIN = "9897";
+        private bool _isPinSet = false;
         private bool _isAnimating;
+        private readonly string _pinFilePath;
+        private const string PinFileName = "app.pin";
 
         public LoginPage()
         {
             InitializeComponent();
+            // Get the path to the file where the PIN will be stored.
+            // FileSystem.AppDataDirectory is a safe place for application data.
+            _pinFilePath = Path.Combine(FileSystem.AppDataDirectory, PinFileName);
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             await StartEntryAnimation();
+
+            // Check if the PIN file exists
+            bool pinExists = File.Exists(_pinFilePath);
+
+            // Show the appropriate UI based on whether a PIN has been set.
+            LoginButton.IsVisible = pinExists;
+            SetPinButton.IsVisible = !pinExists;
+
+            PinEntry.Focus();
         }
 
         private async Task StartEntryAnimation()
@@ -36,7 +50,10 @@ namespace Reminder.Views
 
             try
             {
-                if (PinEntry.Text == PIN)
+                // Read the PIN from the file.
+                string savedPin = await File.ReadAllTextAsync(_pinFilePath);
+
+                if (PinEntry.Text == savedPin)
                 {
                     await AnimateLoginSuccess();
                     Application.Current.MainPage = new AppShell();
@@ -49,6 +66,39 @@ namespace Reminder.Views
             finally
             {
                 _isAnimating = false;
+            }
+        }
+
+        private async void OnSavePinClicked(object sender, EventArgs e)
+        {
+            string newPin = PinEntry.Text;
+
+            if (string.IsNullOrWhiteSpace(newPin) || newPin.Length != 4)
+            {
+                await DisplayAlert("Error", "Please enter a valid 4-digit PIN.", "OK");
+                return;
+            }
+
+            try
+            {
+                // Get the path to the app's data directory.
+                string pinFilePath = Path.Combine(FileSystem.AppDataDirectory, PinFileName);
+
+                // Save the PIN to the file.
+                await File.WriteAllTextAsync(pinFilePath, newPin);
+
+                LoginButton.IsVisible = true;
+                SetPinButton.IsVisible = false;
+                PinEntry.Text = string.Empty;
+
+                PinEntry.Focus();
+
+                await DisplayAlert("Success", "PIN has been saved successfully!", "OK");
+
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Could not save PIN: {ex.Message}", "OK");
             }
         }
 
