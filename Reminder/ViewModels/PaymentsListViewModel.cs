@@ -47,7 +47,7 @@ namespace Reminder.ViewModels
         {
             if (payment == null) return;
 
-            var page = new PaymentEditorPage(payment);
+            var page = new AddReminderPage(payment);
             page.PaymentSaved += async (s, e) => await LoadPaymentsAsync();
             
             await Shell.Current.Navigation.PushAsync(page);
@@ -55,7 +55,7 @@ namespace Reminder.ViewModels
 
         private async Task AddPaymentAsync()
         {
-            var page = new PaymentEditorPage();
+            var page = new AddReminderPage();
             page.PaymentSaved += async (s, e) => await LoadPaymentsAsync();
             
             await Shell.Current.Navigation.PushAsync(page);

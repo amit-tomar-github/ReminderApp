@@ -3,13 +3,13 @@ using Reminder.Services;
 
 namespace Reminder.Views
 {
-    public partial class PaymentEditorPage : ContentPage
+    public partial class AddReminderPage : ContentPage
     {
         private Payment _payment;
         private readonly DatabaseService _dbService;
         public event EventHandler PaymentSaved;
 
-        public PaymentEditorPage(Payment payment = null)
+        public AddReminderPage(Payment payment = null)
         {
             InitializeComponent();
             _dbService = App.Database;

@@ -2,9 +2,9 @@ using Reminder.ViewModels;
 
 namespace Reminder.Views
 {
-    public partial class PaymentsListPage : ContentPage
+    public partial class ReminderListPage : ContentPage
     {
-        public PaymentsListPage()
+        public ReminderListPage()
         {
             InitializeComponent();
             BindingContext = new PaymentsListViewModel();
