@@ -65,12 +65,13 @@
                                             Margin="10,0,0,0"
                                             FontAttributes="Bold"
                                             FontSize="14"
-                                            Text="{Binding Amount, StringFormat='?{0:N0}'}"
+                                            Text="{Binding Amount, StringFormat='₹{0:N0}'}"
                                             TextColor="{AppThemeBinding Light={StaticResource Primary},
                                                                         Dark={StaticResource PrimaryDark}}" />
                                     </StackLayout>
 
                                     <!--  Edit Button  -->
+                                    <!--
                                     <ImageButton
                                         Grid.RowSpan="3"
                                         Grid.Column="1"
@@ -82,6 +83,7 @@
                                         HeightRequest="24"
                                         Source="edit.png"
                                         WidthRequest="24" />
+                                    -->
 
                                     <!--  Delete Button  -->
                                     <ImageButton

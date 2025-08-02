@@ -3,65 +3,55 @@
     x:Class="Reminder.Views.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Shell.NavBarIsVisible="False"
-    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
-    <Grid 
-        RowDefinitions="2*,3*"
-        Padding="20">
-        <Border
-            Grid.Row="0"
-            Margin="0,50,0,0"
-            StrokeShape="RoundRectangle 40"
-            StrokeThickness="0"
-            HorizontalOptions="Center"
-            HeightRequest="200"
-            WidthRequest="200"
-            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-            Shadow="10">
-            <Image
-                x:Name="LogoImage"
-                Source="dotnet_bot.png"
-                HeightRequest="150"
-                Margin="20"/>
-        </Border>
+    BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                      Dark={StaticResource Gray950}}"
+    Shell.NavBarIsVisible="False">
+    <Grid Padding="20" RowDefinitions="2*,3*">
+
+        <Image
+            x:Name="LogoImage"
+            Margin="20"
+            Source="login.svg" />
 
         <VerticalStackLayout
             x:Name="LoginControls"
             Grid.Row="1"
-            Spacing="20"
-            Opacity="0">
+            Opacity="0"
+            Spacing="20">
             <Label
-                Text="Payment Reminder"
-                FontSize="32"
                 FontAttributes="Bold"
+                FontSize="32"
                 HorizontalOptions="Center"
-                TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
-            
+                Text="Payment Reminder"
+                TextColor="{AppThemeBinding Light={StaticResource Primary},
+                                            Dark={StaticResource PrimaryDark}}" />
+
             <Frame
                 Padding="15,0"
-                BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                CornerRadius="30"
+                BorderColor="{AppThemeBinding Light={StaticResource Primary},
+                                              Dark={StaticResource PrimaryDark}}"
+                CornerRadius="10"
                 HasShadow="True">
                 <Entry
                     x:Name="PinEntry"
+                    FontSize="20"
+                    HeightRequest="50"
                     HorizontalTextAlignment="Center"
                     IsPassword="True"
                     Keyboard="Numeric"
                     MaxLength="4"
-                    Placeholder="Enter PIN"
-                    FontSize="20"
-                    HeightRequest="50" />
+                    Placeholder="Enter PIN" />
             </Frame>
 
             <Button
                 x:Name="LoginButton"
-                Text="Login"
+                Margin="20,10"
                 Clicked="OnLoginClicked"
-                HeightRequest="50"
                 CornerRadius="25"
                 FontAttributes="Bold"
                 FontSize="18"
-                Margin="20,10">
+                HeightRequest="50"
+                Text="Go">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Offset="0.0" Color="{StaticResource Primary}" />

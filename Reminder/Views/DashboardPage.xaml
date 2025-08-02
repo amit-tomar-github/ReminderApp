@@ -4,9 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Dashboard">
-    
-    <Grid RowDefinitions="Auto,*" Padding="10">
-        <!-- Summary Section -->
+
+    <Grid Padding="10" RowDefinitions="Auto,*">
+        <!--  Summary Section  -->
         <Frame
             Margin="0,10,0,20"
             Padding="20"
@@ -27,7 +27,7 @@
                     HorizontalOptions="Center"
                     Text="Pending Reminders"
                     TextColor="White" />
-                
+
                 <VerticalStackLayout Grid.Row="1" Grid.Column="0">
                     <Label
                         FontSize="16"
@@ -39,8 +39,11 @@
                         Text="{Binding PendingAmount, StringFormat='₹{0:N0}'}"
                         TextColor="White" />
                 </VerticalStackLayout>
-                
-                <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="End">
+
+                <VerticalStackLayout
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalOptions="End">
                     <Label
                         FontSize="16"
                         Text="Count"
@@ -54,7 +57,7 @@
             </Grid>
         </Frame>
 
-        <!-- Pending Payments List -->
+        <!--  Pending Payments List  -->
         <RefreshView
             x:Name="refreshView"
             Grid.Row="1"
@@ -73,21 +76,28 @@
                             Margin="0,20,0,0"
                             FontSize="18"
                             Text="No pending reminders"
-                            TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+                            TextColor="{AppThemeBinding Light={StaticResource Gray500},
+                                                        Dark={StaticResource Gray400}}" />
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="5">
-                            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                            <Frame
+                                Padding="15"
+                                CornerRadius="10"
+                                HasShadow="True">
                                 <Frame.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                         <GradientStop Offset="0.0" Color="{StaticResource Secondary}" />
                                         <GradientStop Offset="1.0" Color="White" />
                                     </LinearGradientBrush>
                                 </Frame.Background>
-                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="5">
-                                    <!-- Payment Details -->
+                                <Grid
+                                    ColumnDefinitions="*,Auto"
+                                    RowDefinitions="Auto,Auto,Auto"
+                                    RowSpacing="5">
+                                    <!--  Payment Details  -->
                                     <Label
                                         Grid.Column="0"
                                         FontAttributes="Bold"
@@ -98,16 +108,21 @@
                                         Grid.Column="0"
                                         FontSize="14"
                                         Text="{Binding Description}"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray600},
+                                                                    Dark={StaticResource Gray400}}" />
                                     <Label
                                         Grid.Row="2"
                                         Grid.Column="0"
                                         FontSize="14"
                                         Text="{Binding DueDate, StringFormat='Due: {0:dd-MM-yyyy}'}"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray600},
+                                                                    Dark={StaticResource Gray400}}" />
 
-                                    <!-- Amount and Complete Button -->
-                                    <StackLayout Grid.RowSpan="3" Grid.Column="1" Spacing="10">
+                                    <!--  Amount and Complete Button  -->
+                                    <StackLayout
+                                        Grid.RowSpan="3"
+                                        Grid.Column="1"
+                                        Spacing="10">
                                         <Label
                                             FontAttributes="Bold"
                                             FontSize="18"

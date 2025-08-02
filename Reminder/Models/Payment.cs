@@ -10,6 +10,5 @@ namespace Reminder.Models
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public decimal Amount { get; set; }
-        public bool IsCompleted { get; set; }
     }
 }

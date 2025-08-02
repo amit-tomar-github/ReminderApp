@@ -48,8 +48,7 @@ namespace Reminder.ViewModels
             _dbService = App.Database;
             LoadPaymentsCommand = new Command(async () => await LoadPaymentsAsync());
             CompletePaymentCommand = new Command<Payment>(async (payment) => await CompletePaymentAsync(payment));
-            
-            LoadPaymentsCommand.Execute(null);
+            // Removed initial data load to avoid double records
         }
 
         private async Task LoadPaymentsAsync()

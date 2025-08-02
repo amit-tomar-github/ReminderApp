@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="a" x1="128" x2="128" y1="210" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4CAF50" offset="0"/>
+      <stop stop-color="#8BC34A" offset="1"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(0 -229.47)">
+    <rect x="46" y="275.47" width="164" height="182" ry="16" fill="url(#a)"/>
+    <rect x="46" y="275.47" width="164" height="30" ry="8" fill="#F4F4F4"/>
+    <!-- Moved the path element to be drawn before the text so the text is on top -->
+    <path d="m116 325.47h24c8.84 0 16-7.16 16-16v-8c0-8.84-7.16-16-16-16h-24c-8.84 0-16 7.16-16 16v8c0 8.84 7.16 16 16 16z" fill="#F4F4F4"/>
+    <text x="64.5" y="297.47" font-family="Roboto, sans-serif" font-size="16" font-weight="bold" fill="#607D8B">My Reminders</text>
+    <g fill="#F4F4F4">
+      <rect x="66" y="337.47" width="12" height="12" ry="2"/>
+      <rect x="86" y="337.47" width="12" height="12" ry="2"/>
+      <rect x="106" y="337.47" width="12" height="12" ry="2"/>
+      <rect x="126" y="337.47" width="12" height="12" ry="2"/>
+      <rect x="146" y="337.47" width="12" height="12" ry="2"/>
+      <rect x="166" y="337.47" width="12" height="12" ry="2"/>
+      <rect x="186" y="337.47" width="12" height="12" ry="2"/>
+      <rect x="66" y="357.47" width="12" height="12" ry="2"/>
+      <rect x="86" y="357.47" width="12" height="12" ry="2"/>
+      <rect x="106" y="357.47" width="12" height="12" ry="2"/>
+      <rect x="126" y="357.47" width="12" height="12" ry="2"/>
+      <rect x="146" y="357.47" width="12" height="12" ry="2"/>
+      <rect x="166" y="357.47" width="12" height="12" ry="2"/>
+      <rect x="186" y="357.47" width="12" height="12" ry="2"/>
+      <rect x="66" y="377.47" width="12" height="12" ry="2"/>
+      <rect x="86" y="377.47" width="12" height="12" ry="2"/>
+      <rect x="106" y="377.47" width="12" height="12" ry="2"/>
+      <rect x="126" y="377.47" width="12" height="12" ry="2"/>
+      <rect x="146" y="377.47" width="12" height="12" ry="2"/>
+      <rect x="166" y="377.47" width="12" height="12" ry="2"/>
+      <rect x="186" y="377.47" width="12" height="12" ry="2"/>
+    </g>
+    <path d="m146.68 402.61-22.388 22.388-10.792-10.792-7.585 7.585 18.377 18.377 29.974-29.974z" fill="#fff"/>
+  </g>
+</svg>
